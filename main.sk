@@ -22,7 +22,7 @@ command /bc [<text>]:
 
 
 	
-command /cc-public:
+command /cc-publoc:
     permission:
     aliases:clearchat-public
     trigger:
@@ -41,9 +41,9 @@ command /cc-public:
         broadcast "{@prefix} {@sender} &n&ehas Cleared the Chat."
         stop
 
-command /cc-public:
+command /cc:
     permission:
-    aliases:clearchat-public
+    aliases:clearchat
     trigger:
         broadcast "{@prefix} &n&e clearing chat in 5.."
         wait 1 second
