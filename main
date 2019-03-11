@@ -1,0 +1,92 @@
+options:
+    perm: &bYou Don't have permission to execute that command
+    p:    &7[&aMessage&7]
+        
+command /broadcast [<text>]:
+    permission: playdms.core
+    permission message: {@perm}
+    trigger:
+        if arg-1 is set:
+            broadcast "{@p} &c%arg-1%"
+            stop
+        
+command /bc [<text>]:
+    permission: playdms.core
+    permission message: {@perm}
+    trigger:
+        if arg-1 is set:
+            broadcast "{@p} &e%arg-1%"
+            stop
+        
+command /broadcast-p [<text>]:
+    permission: playdms.core
+    permission message: {@perm}
+    trigger:
+        if arg-1 is set:
+        broadcast "&7[&aPublic Message&7] &e from: &9%player%: &e%arg-1%"
+        stop
+        
+command /bc-p [<text>]:
+    permission: playdms.core
+    permission message: {@perm}
+    trigger:
+        if arg-1 is set:
+            broadcast "&7[&aPublic Message&7] &e from: &9%player%: &e%arg-1%"
+            stop
+						
+	
+	
+command /pbcc:
+    permission:PlayBot.core
+    aliases: playbot-clearchat 
+    trigger:
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 5.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 4.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 3.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 2.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 1.."
+        wait 1 second
+        loop 100 times:
+            broadcast ""
+        broadcast "&7[&aPlayBot&7] » &n&e%player% has cleared the chat."
+        stop
+
+command /pbcc-s:
+    permission:liamessentials.core
+    aliases: playbot-clearchat-s
+    trigger:
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 5.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 4.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 3.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 2.."
+        wait 1 second
+        broadcast "&7[&aPlayBot&7] » &n&eClearing chat in 1.."
+        wait 1 second
+        loop 100 times:
+            broadcast ""
+        broadcast "&7[&aPlayBot&7] » &8[SILENT] &n&eSuccessfully cleared the chat."
+        stop
+
+
+
+
+every 4 seconds:
+	set {clickz} to true
+	wait  1 second
+	set {clickz} to false
+	loop all players:
+		delete {clickz.%loop-player%}	
+on left click:
+	{clickz} is true
+	add 1 to {clickz.%player%}
+	{clickz.%player%} > 5
+	kick the player due to "&8[&cLiamBotAC&8] &cCPS: %{clickz.%player%}%"
+on join:
+clear {clickz.%player%}
