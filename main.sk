@@ -1,30 +1,64 @@
+# #! ------------------------------------
+# #! © LiamEssentials | DevMC™ + Liam™
+# #! ------------------------------------
+
+
+on script load:
+	send "&8&m----------------------------------" to console
+	send "                                      " to console 
+	send "          &3LiamEssentials            " to console
+	send "              &aEnabled               " to console
+	send "                                      " to console
+	send "&8&m----------------------------------" to console
+
+
+on script unload:
+	send "&8&m----------------------------------" to console
+	send "                                      " to console 
+	send "          &3LiamEssentials            " to console
+	send "              &cDisabled              " to console 
+	send "                                      " to console
+	send "&8&m----------------------------------" to console
+
 options:
-	prefix: &7[@cLiam's Essentials&7]
-	annpouncement.prefix: &7[@cAnnouncemet&7] 
+	prefix: &7[&cLiam's Essentials&7]
+	announcements.prefix: &7[&cAnnoncements&7] 
 	perm.msg: &7[&cLiam's Essentials&7] &eYou dont have permission to do that.
-	text: &e%arg-1% 
+	args: &e%arg-1% 
 	sender: &9%player%
-        
+	error: &cNo valide text added. 
+	
+	# #! Perms
+	
+	cc.public.perm: liamsessentials.public.clearchat
+	cc.perm: liamsessentials.clearchat
+	bc.perm: liamsessentials.broadcast
+	
+	
+
 command /broadcast [<text>]:
-    permission: liamsessentials.broadcast
+    permission: {@bc.perm}
     permission message: {@perm.msg}
     trigger:
-        if arg-1 is set:
-            broadcast "{@announcement.prefix} {@text}"
+        if arg 1 is set:
+            broadcast "{@announcements.prefix} {@args}"
             stop
+		if arg 1 is not set:
+			send "{@error}" to player 
         
 command /bc [<text>]:
-    permission: liamsessentials.broadcast
+    permission: {@bc.perm}
     permission message: {@perm.msg}
     trigger:
-        if arg-1 is set:
-            broadcast {@announcement.prefix} {@text}"
+        if arg 1 is set:
+            broadcast "{announcements.prefix} {@args}"
+		if arg 1 is not set:
+			send "{@error}" to player 
 
-
-	
-command /cc-publoc:
-    permission:
-    aliases:clearchat-public
+command /cc-public [<text>]:
+    permission: {@cc.public.perm}
+	permission message: {@perm.msg}
+    aliases: clearchat-public
     trigger:
         broadcast "{@prefix} &n&e clearing chat in 5.."
         wait 1 second
@@ -41,9 +75,10 @@ command /cc-publoc:
         broadcast "{@prefix} {@sender} &n&ehas Cleared the Chat."
         stop
 
-command /cc:
-    permission:
-    aliases:clearchat
+command /cc [<text>]:
+    permission: {@cc.perm}
+	permission message: {@perms.message}
+    aliases: clearchat
     trigger:
         broadcast "{@prefix} &n&e clearing chat in 5.."
         wait 1 second
@@ -61,17 +96,18 @@ command /cc:
         stop
 
 
-
 every 4 seconds:
 	set {clickz} to true
 	wait  1 second
 	set {clickz} to false
 	loop all players:
 		delete {clickz.%loop-player%}	
+			
 on left click:
 	{clickz} is true
 	add 1 to {clickz.%player%}
-	{clickz.%player%} > 5
+	{clickz.%player%} > 15
 	kick the player due to "{@prefix} &cCPS: %{clickz.%player%}%"
+	
 on join:
 clear {clickz.%player%}
